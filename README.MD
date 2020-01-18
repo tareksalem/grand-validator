@@ -85,6 +85,7 @@ each property inside the schema should be an object this object has main propert
 
 
 schema property options:
+
 | property   |     type   | default|
 |----------|:-------------:|:-------------:|
 | type |  String, Object, Array, Number, ObjectId, Any, Boolean, Function |no default|
