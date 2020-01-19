@@ -294,12 +294,12 @@ var schema = {
     cardInfo: {
         type: {
             cardNumber: {
-                value: [Number, String],
+                type: [Number, String],
                 multiTypes: true
             }
         },
     }
-}
+ }
 ```
 
 
