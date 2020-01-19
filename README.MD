@@ -1,4 +1,4 @@
-# Grandjs Validation Library
+i9# Grandjs Validation Library
 <p align="center"><img width="200" height="200" src="https://i.ibb.co/t4MDdkq/grandjs.png" alt="Grandjs logo"></p>
 
 This package uses Grandjs framework validation methods, functions, schema to allow you to validate your coming data and build schema for dynamic data easily, smoothly and without confusing.
@@ -362,3 +362,35 @@ userSchema.validate({
     age: 20
 })
 ```
+
+
+### Get Validation Result 
+you can access on the validation result over the schema by calling this property `validations` which is an array of objects contains the error fields and the message of each field, if there are no errors `validations` will return an empty array. 
+
+**Example**
+
+```javascript
+var userSchema = new Schema({
+    name: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    age: {
+        type: Number
+    }
+})
+// validate the schema
+userSchema.validate({
+    name: "tarek",
+    email: "tarek@gmail.com",
+    age: 20
+})
+
+console.log(userSchema.validations)
+
+// will return an array []
+```
+
+
