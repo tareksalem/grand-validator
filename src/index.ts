@@ -6,14 +6,14 @@
 
 
 //  dependencies
-const {Types, SchemaValidator} = require("./lib/schema");
-const Validator = require("./lib/validator");
-
-
-
+import {Types, Schema, ValidationResult} from "./schema";
+import Validator from "./validator";
+Validator.validation
+// const Schema =  SchemaValidator
 // export functions
-module.exports = {
+export {
     Validator,
-    Schema: SchemaValidator,
-    Types
+    Types,
+    Schema,
+    ValidationResult
 }

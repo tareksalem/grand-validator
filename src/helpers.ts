@@ -1,13 +1,25 @@
-"use strict";
 /**
  * ====================================================
  * file role: Helpers for validation
  * ====================================================
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.helpers = void 0;
-var helpers = {};
-exports.helpers = helpers;
+
+interface OptionalObject {
+    [key: string]: any
+}
+export interface Validation {
+    strip_html_tags(str: string): any
+    checkEmail(str: string, cb?: Function): any
+    notEmptyString(str: string, cb?: Function): any
+    checkContainsNumber(str: string, count: number, cb?: Function): any
+    isObject(obj: OptionalObject): any
+    notEmpty(obj: OptionalObject): any
+    isString(str: string): any
+    checkIsNumber(number: string | number, cb: Function): any
+}
+const helpers: { validation?: Validation } = {};
+
+
 helpers.validation = {
     strip_html_tags: function (str) {
         if ((str === null) || (str === ''))
@@ -24,14 +36,13 @@ helpers.validation = {
             if (cb) {
                 var test = regEx.test(elementVal);
                 return cb(test);
-            }
-            else {
+            } else {
                 return regEx.test(elementVal);
             }
         }
     },
     notEmptyString: function (string, cb) {
-        var elementVal = string !== undefined ? string : "";
+        let elementVal = string !== undefined ? string : "";
         elementVal = elementVal.trim();
         if (elementVal === "" || elementVal.length < 1) {
             if (!cb) {
@@ -39,20 +50,18 @@ helpers.validation = {
             }
             if (cb) {
                 var empty = false;
-                return cb(empty);
+                return cb(empty)
             }
-        }
-        else {
+        } else {
             if (cb) {
                 return cb(elementVal);
-            }
-            else {
+            } else {
                 return elementVal;
             }
         }
     },
     // method to check if the value is contains a number
-    checkContainsNumber: function (string, count, cb) {
+    checkContainsNumber: function (string: string, count: number, cb: Function) {
         var elementVal = string.trim();
         if (typeof count === "function" && !cb) {
             cb = count;
@@ -66,63 +75,60 @@ helpers.validation = {
                 }
             });
             if (numArr.length === count) {
-                var result = true;
+                let result = true;
                 if (cb) {
                     return cb(result);
-                }
-                else {
+                } else {
                     return result;
                 }
-            }
-            else {
-                var result = false;
+            } else {
+                let result = false;
                 if (cb) {
                     return cb(result);
-                }
-                else {
+                } else {
                     return result;
                 }
             }
         }
     },
     // method to check if the input is Object
-    isObject: function (obj) {
+    isObject: function (obj: OptionalObject) {
         if (typeof obj == "object") {
             return obj;
-        }
-        else {
+        } else {
             return false;
         }
     },
     // method to check if the object is not empty
-    notEmpty: function (obj) {
+    notEmpty: function (obj: OptionalObject) {
         if (Object.keys(obj).length > 0) {
             return obj;
-        }
-        else {
+        } else {
             return false;
         }
     },
     // method to check if the input is string
-    isString: function (str) {
+    isString: function (str: string) {
         if (typeof str === "string") {
             return str;
-        }
-        else {
+        } else {
             return false;
         }
     },
     // method to check if the input is number
-    checkIsNumber: function (number, cb) {
+    checkIsNumber: function (number: string | number, cb: Function) {
         var elementVal = number;
         if (elementVal !== "") {
             var testNumber = Number.isInteger(Number(elementVal));
             if (cb) {
                 return cb(testNumber);
-            }
-            else {
+            } else {
                 return testNumber;
             }
         }
     }
 };
+
+
+
+export {helpers};
