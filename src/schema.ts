@@ -342,13 +342,13 @@ interface ValidationResult{
                     }
                 }
                 if(typeof schemaValue.min === "number" && schemaValue.min > -1) {
-                    if(value < schemaValue.min) {
+                    if(value.length < schemaValue.min) {
                         return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
                     }
                 }
                 // check the maximum length of the string
                 if(typeof schemaValue.max === "number" && schemaValue.max > -1) {
-                    if(value > schemaValue.max) {
+                    if(value.length > schemaValue.max) {
                         return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
                     }
                 }
