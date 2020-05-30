@@ -263,14 +263,14 @@ interface ValidationResult{
                 }
             }
             // check the minimum length of the string
-            if(typeof schemaValue.min === "number" && schemaValue.min.length > -1) {
+            if(typeof schemaValue.min === "number" && schemaValue.min > -1) {
                 if(value.length < schemaValue.min) {
                     return this._buildValidationModel.apply(this, [keyName, "string",typeof value, message, pushToValidation]);
                 }
             }
             // check the maximum length of the string
-            if(typeof schemaValue.max === "number" && schemaValue.min.length > -1) {
-                if(value.length > schemaValue.min) {
+            if(typeof schemaValue.max === "number" && schemaValue.max > -1) {
+                if(value.length > schemaValue.max) {
                     return this._buildValidationModel.apply(this, [keyName, "string",typeof value, message, pushToValidation]);
                 }
             }
@@ -312,9 +312,46 @@ interface ValidationResult{
             if(!Array.isArray(value)) {
                 return this._buildValidationModel.apply(this, [keyName, "array", typeof value, message, pushToValidation]);
             }
+            // check if the schema has length property to check the string length
+            if(typeof schemaValue.length == "number") {
+                let length = Number.parseInt(schemaValue.length);
+                if(value.length > length) {
+                    message = message || `${keyName} length shouldn't be greater than ${length}`;
+                    return this._buildValidationModel.apply(this, [keyName, "array", typeof value, message, pushToValidation]);
+                }
+            }
+            if(typeof schemaValue.min === "number" && schemaValue.min > -1) {
+                if(value < schemaValue.min) {
+                    return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
+                }
+            }
+            // check the maximum length of the string
+            if(typeof schemaValue.max === "number" && schemaValue.max > -1) {
+                if(value > schemaValue.max) {
+                    return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
+                }
+            }
         } else if(Array.isArray(schema) && schema[0] !== undefined) {
             // check if the schema array length is greater than one
             if(Array.isArray(value) && value[0] !== undefined) {
+                if(typeof schemaValue.length == "number") {
+                    let length = Number.parseInt(schemaValue.length);
+                    if(value.length > length) {
+                        message = message || `${keyName} length shouldn't be greater than ${length}`;
+                        return this._buildValidationModel.apply(this, [keyName, "array", typeof value, message, pushToValidation]);
+                    }
+                }
+                if(typeof schemaValue.min === "number" && schemaValue.min > -1) {
+                    if(value < schemaValue.min) {
+                        return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
+                    }
+                }
+                // check the maximum length of the string
+                if(typeof schemaValue.max === "number" && schemaValue.max > -1) {
+                    if(value > schemaValue.max) {
+                        return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
+                    }
+                }
                 // check if loop option is true
                 if(schemaValue.loop == true) {
                     Array.from(value).forEach((element, i) => {
@@ -342,14 +379,14 @@ interface ValidationResult{
         let {keyName, value, schemaValue, schema, message} = data;
         if(typeof value == "number" || typeof Number.parseInt(value) === "number") {
             // check the minimum length of the string
-            if(typeof schemaValue.min === "number" && schemaValue.min.length > -1) {
+            if(typeof schemaValue.min === "number" && schemaValue.min > -1) {
                 if(value < schemaValue.min) {
                     return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
                 }
             }
             // check the maximum length of the string
-            if(typeof schemaValue.max === "number" && schemaValue.min.length > -1) {
-                if(value > schemaValue.min) {
+            if(typeof schemaValue.max === "number" && schemaValue.max > -1) {
+                if(value > schemaValue.max) {
                     return this._buildValidationModel.apply(this, [keyName, "number", typeof value, message, pushToValidation]);
                 }
             }
